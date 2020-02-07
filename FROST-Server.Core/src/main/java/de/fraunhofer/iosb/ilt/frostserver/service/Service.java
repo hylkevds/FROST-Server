@@ -30,12 +30,11 @@ import de.fraunhofer.iosb.ilt.frostserver.model.builder.ObservationBuilder;
 import de.fraunhofer.iosb.ilt.frostserver.model.core.Entity;
 import de.fraunhofer.iosb.ilt.frostserver.parser.path.PathParser;
 import de.fraunhofer.iosb.ilt.frostserver.parser.query.QueryParser;
-import de.fraunhofer.iosb.ilt.frostserver.path.EntityPathElement;
-import de.fraunhofer.iosb.ilt.frostserver.path.EntitySetPathElement;
-import de.fraunhofer.iosb.ilt.frostserver.path.EntityType;
-import de.fraunhofer.iosb.ilt.frostserver.path.NavigationProperty;
+import de.fraunhofer.iosb.ilt.frostserver.path.PathElementEntity;
+import de.fraunhofer.iosb.ilt.frostserver.path.PathElementEntitySet;
+import de.fraunhofer.iosb.ilt.frostserver.model.EntityType;
+import de.fraunhofer.iosb.ilt.frostserver.property.NavigationProperty;
 import de.fraunhofer.iosb.ilt.frostserver.path.ResourcePath;
-import de.fraunhofer.iosb.ilt.frostserver.path.ResourcePathElement;
 import de.fraunhofer.iosb.ilt.frostserver.persistence.PersistenceManager;
 import de.fraunhofer.iosb.ilt.frostserver.persistence.PersistenceManagerFactory;
 import de.fraunhofer.iosb.ilt.frostserver.query.Query;
@@ -61,6 +60,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import de.fraunhofer.iosb.ilt.frostserver.path.PathElement;
 
 /**
  * Executes SensorThings commands. Normally, each call of
@@ -334,8 +334,8 @@ public class Service implements AutoCloseable {
     private void fixDataArrayRequests(Query query, ResourcePath path) {
         // If DataArray is requested, and $select is used, make sure Datastream is in the $select.
         if ("dataarray".equalsIgnoreCase(query.getFormat()) && !query.getSelect().isEmpty()) {
-            ResourcePathElement lastElement = path.getLastElement();
-            if (lastElement instanceof EntitySetPathElement && ((EntitySetPathElement) lastElement).getEntityType() == EntityType.OBSERVATION) {
+            PathElement lastElement = path.getLastElement();
+            if (lastElement instanceof PathElementEntitySet && ((PathElementEntitySet) lastElement).getEntityType() == EntityType.OBSERVATION) {
                 query.getSelect().add(NavigationProperty.DATASTREAM);
                 query.getSelect().add(NavigationProperty.MULTIDATASTREAM);
             }
@@ -372,7 +372,7 @@ public class Service implements AutoCloseable {
         } catch (IllegalStateException e) {
             return errorResponse(response, 404, NOT_A_VALID_ID + ": " + e.getMessage());
         }
-        if (!(path.getMainElement() instanceof EntitySetPathElement)) {
+        if (!(path.getMainElement() instanceof PathElementEntitySet)) {
             return errorResponse(response, 400, POST_ONLY_ALLOWED_TO_COLLECTIONS);
         }
         if (request.getUrlQuery() != null && !request.getUrlQuery().isEmpty()) {
@@ -384,7 +384,7 @@ public class Service implements AutoCloseable {
             return errorResponse(response, 404, NOTHING_FOUND_RESPONSE);
         }
 
-        EntitySetPathElement mainSet = (EntitySetPathElement) path.getMainElement();
+        PathElementEntitySet mainSet = (PathElementEntitySet) path.getMainElement();
         EntityType type = mainSet.getEntityType();
         EntityParser entityParser = new EntityParser(pm.getIdManager().getIdClass());
         Entity entity;
@@ -498,7 +498,7 @@ public class Service implements AutoCloseable {
     }
 
     private <T> ServiceResponse<T> handlePatch(PersistenceManager pm, ServiceRequest request, ServiceResponse<T> response) throws IOException, IncompleteEntityException {
-        EntityPathElement mainElement;
+        PathElementEntity mainElement;
         Entity entity;
         try {
             mainElement = parsePathForPutPatch(pm, request);
@@ -531,7 +531,7 @@ public class Service implements AutoCloseable {
     }
 
     private <T> ServiceResponse<T> handleChangeSet(PersistenceManager pm, ServiceRequest request, ServiceResponse<T> response) throws IOException, IncompleteEntityException {
-        EntityPathElement mainElement;
+        PathElementEntity mainElement;
         JsonPatch jsonPatch;
         try {
             mainElement = parsePathForPutPatch(pm, request);
@@ -561,7 +561,7 @@ public class Service implements AutoCloseable {
         }
     }
 
-    private EntityPathElement parsePathForPutPatch(PersistenceManager pm, ServiceRequest request) throws NoSuchEntityException {
+    private PathElementEntity parsePathForPutPatch(PersistenceManager pm, ServiceRequest request) throws NoSuchEntityException {
         ResourcePath path;
         try {
             path = PathParser.parsePath(pm.getIdManager(), settings.getServiceRootUrl(request.getVersion()), request.getUrlPath());
@@ -576,10 +576,10 @@ public class Service implements AutoCloseable {
             throw new NoSuchEntityException("No entity found for path.");
         }
 
-        if (!(path.getMainElement() instanceof EntityPathElement) || path.getMainElement() != path.getLastElement()) {
+        if (!(path.getMainElement() instanceof PathElementEntity) || path.getMainElement() != path.getLastElement()) {
             throw new IllegalArgumentException("PATCH & PUT only allowed on Entities.");
         }
-        EntityPathElement mainElement = (EntityPathElement) path.getMainElement();
+        PathElementEntity mainElement = (PathElementEntity) path.getMainElement();
         if (mainElement.getId() == null) {
             throw new IllegalArgumentException("PATCH & PUT only allowed on Entities.");
         }
@@ -611,7 +611,7 @@ public class Service implements AutoCloseable {
     }
 
     private <T> ServiceResponse<T> handlePut(PersistenceManager pm, ServiceRequest request, ServiceResponse<T> response) throws IOException, IncompleteEntityException {
-        EntityPathElement mainElement;
+        PathElementEntity mainElement;
         Entity entity;
         try {
             mainElement = parsePathForPutPatch(pm, request);
@@ -659,10 +659,10 @@ public class Service implements AutoCloseable {
             return new ServiceResponse<>().setStatus(404, NOT_A_VALID_ID + ": " + e.getMessage());
         }
 
-        if ((path.getMainElement() instanceof EntityPathElement)) {
+        if ((path.getMainElement() instanceof PathElementEntity)) {
             return executeDeleteEntity(request, path);
         }
-        if ((path.getMainElement() instanceof EntitySetPathElement)) {
+        if ((path.getMainElement() instanceof PathElementEntitySet)) {
             return executeDeleteEntitySet(request, path);
         }
         return new ServiceResponse<>().setStatus(400, "Not a valid path for DELETE.");
@@ -672,7 +672,7 @@ public class Service implements AutoCloseable {
         ServiceResponse<T> response = new ServiceResponse<>();
         PersistenceManager pm = null;
         try {
-            EntityPathElement mainEntity = (EntityPathElement) path.getMainElement();
+            PathElementEntity mainEntity = (PathElementEntity) path.getMainElement();
             if (mainEntity != path.getLastElement()) {
                 return errorResponse(response, 400, "DELETE not allowed on properties.");
             }
@@ -702,7 +702,7 @@ public class Service implements AutoCloseable {
         }
     }
 
-    private <T> ServiceResponse<T> handleDelete(PersistenceManager pm, EntityPathElement mainEntity, ServiceResponse<T> response) {
+    private <T> ServiceResponse<T> handleDelete(PersistenceManager pm, PathElementEntity mainEntity, ServiceResponse<T> response) {
         try {
             if (pm.delete(mainEntity)) {
                 maybeCommitAndClose();
@@ -723,7 +723,7 @@ public class Service implements AutoCloseable {
         ServiceResponse<T> response = new ServiceResponse<>();
         PersistenceManager pm = null;
         try {
-            EntitySetPathElement mainEntity = (EntitySetPathElement) path.getMainElement();
+            PathElementEntitySet mainEntity = (PathElementEntitySet) path.getMainElement();
             if (mainEntity != path.getLastElement()) {
                 return errorResponse(response, 400, "DELETE not allowed on properties.");
             }
