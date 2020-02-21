@@ -20,7 +20,6 @@ package de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.factories;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.fraunhofer.iosb.ilt.frostserver.json.deserialize.EntityParser;
 import de.fraunhofer.iosb.ilt.frostserver.json.deserialize.custom.GeoJsonDeserializier;
 import de.fraunhofer.iosb.ilt.frostserver.json.serialize.GeoJsonSerializer;
 import de.fraunhofer.iosb.ilt.frostserver.model.Actuator;
@@ -58,7 +57,7 @@ import de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.tables.StaTable;
 import de.fraunhofer.iosb.ilt.frostserver.persistence.pgjooq.tables.TableCollection;
 import de.fraunhofer.iosb.ilt.frostserver.query.Query;
 import static de.fraunhofer.iosb.ilt.frostserver.util.Constants.UTC;
-import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapper;
+import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapperHelper;
 import de.fraunhofer.iosb.ilt.frostserver.util.exception.IncompleteEntityException;
 import de.fraunhofer.iosb.ilt.frostserver.util.exception.NoSuchEntityException;
 import java.io.IOException;
@@ -594,7 +593,7 @@ public class EntityFactories<J> {
 
     public static ObjectMapper getFormatter() {
         if (formatter == null) {
-            formatter = SimpleJsonMapper.getSimpleObjectMapper();
+            formatter = SimpleJsonMapperHelper.getSimpleObjectMapper();
         }
         return formatter;
     }

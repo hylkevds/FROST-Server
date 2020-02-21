@@ -18,10 +18,8 @@
 package de.fraunhofer.iosb.ilt.frostserver.model.ext;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapper;
+import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapperHelper;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Model class for UnitOfMeasurement. This is not a first class entity in STA.
@@ -91,7 +89,7 @@ public class UnitOfMeasurement {
     @Override
     public String toString() {
         try {
-            return SimpleJsonMapper.getSimpleObjectMapper().writeValueAsString(this);
+            return SimpleJsonMapperHelper.getSimpleObjectMapper().writeValueAsString(this);
         } catch (JsonProcessingException ex) {
             return super.toString();
         }

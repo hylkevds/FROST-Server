@@ -53,13 +53,10 @@ import java.util.Map;
 import java.util.UUID;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.junit.After;
 import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  *
@@ -69,16 +66,9 @@ public class EntityParserTest {
 
     private EntityParser entityParser;
 
-    @Rule
-    public final ExpectedException exception = ExpectedException.none();
-
     @Before
     public void setUp() {
         entityParser = new EntityParser(IdLong.class);
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test
@@ -1139,59 +1129,51 @@ public class EntityParserTest {
         assertEquals(expectedResult, entityParser.parseThing(json));
     }
 
-    @Test
+    @Test(expected = UnrecognizedPropertyException.class)
     public void readThingWithUnknownField() throws IOException {
         String json = "{ \"someField\": 123}";
-        exception.expect(UnrecognizedPropertyException.class);
         entityParser.parseThing(json);
     }
 
-    @Test
+    @Test(expected = UnrecognizedPropertyException.class)
     public void readSensorWithUnknownField() throws IOException {
         String json = "{ \"someField\": 123}";
-        exception.expect(UnrecognizedPropertyException.class);
         entityParser.parseSensor(json);
     }
 
-    @Test
+    @Test(expected = UnrecognizedPropertyException.class)
     public void readDatastreamWithUnknownField() throws IOException {
         String json = "{ \"someField\": 123}";
-        exception.expect(UnrecognizedPropertyException.class);
         entityParser.parseDatastream(json);
     }
 
-    @Test
+    @Test(expected = UnrecognizedPropertyException.class)
     public void readLocationWithUnknownField() throws IOException {
         String json = "{ \"someField\": 123}";
-        exception.expect(UnrecognizedPropertyException.class);
         entityParser.parseLocation(json);
     }
 
-    @Test
+    @Test(expected = UnrecognizedPropertyException.class)
     public void readFeatureOfInterestWithUnknownField() throws IOException {
         String json = "{ \"someField\": 123}";
-        exception.expect(UnrecognizedPropertyException.class);
         entityParser.parseFeatureOfInterest(json);
     }
 
-    @Test
+    @Test(expected = UnrecognizedPropertyException.class)
     public void readHistoricalLocationWithUnknownField() throws IOException {
         String json = "{ \"someField\": 123}";
-        exception.expect(UnrecognizedPropertyException.class);
         entityParser.parseHistoricalLocation(json);
     }
 
-    @Test
+    @Test(expected = UnrecognizedPropertyException.class)
     public void readObservedPropertyWithUnknownField() throws IOException {
         String json = "{ \"someField\": 123}";
-        exception.expect(UnrecognizedPropertyException.class);
         entityParser.parseObservedProperty(json);
     }
 
-    @Test
+    @Test(expected = UnrecognizedPropertyException.class)
     public void readObservationWithUnknownField() throws IOException {
         String json = "{ \"someField\": 123}";
-        exception.expect(UnrecognizedPropertyException.class);
         entityParser.parseObservation(json);
     }
 

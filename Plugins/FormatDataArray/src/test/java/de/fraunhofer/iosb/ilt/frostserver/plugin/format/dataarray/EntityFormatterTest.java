@@ -24,7 +24,7 @@ import de.fraunhofer.iosb.ilt.frostserver.model.Datastream;
 import de.fraunhofer.iosb.ilt.frostserver.model.MultiDatastream;
 import de.fraunhofer.iosb.ilt.frostserver.model.builder.DatastreamBuilder;
 import de.fraunhofer.iosb.ilt.frostserver.model.builder.MultiDatastreamBuilder;
-import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapper;
+import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapperHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -161,7 +161,7 @@ public class EntityFormatterTest {
     }
 
     private boolean jsonEqual(String string1, String string2) {
-        ObjectMapper mapper = SimpleJsonMapper.getSimpleObjectMapper();
+        ObjectMapper mapper = SimpleJsonMapperHelper.getSimpleObjectMapper();
         try {
             JsonNode json1 = mapper.readTree(string1);
             JsonNode json2 = mapper.readTree(string2);

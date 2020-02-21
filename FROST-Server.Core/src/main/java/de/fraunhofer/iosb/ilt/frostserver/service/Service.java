@@ -45,7 +45,7 @@ import static de.fraunhofer.iosb.ilt.frostserver.service.RequestTypeUtils.UPDATE
 import static de.fraunhofer.iosb.ilt.frostserver.service.RequestTypeUtils.UPDATE_CHANGESET;
 import de.fraunhofer.iosb.ilt.frostserver.settings.Version;
 import de.fraunhofer.iosb.ilt.frostserver.util.HttpMethod;
-import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapper;
+import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapperHelper;
 import de.fraunhofer.iosb.ilt.frostserver.util.StringHelper;
 import de.fraunhofer.iosb.ilt.frostserver.util.exception.IncompleteEntityException;
 import de.fraunhofer.iosb.ilt.frostserver.util.exception.NoSuchEntityException;
@@ -524,7 +524,7 @@ public class Service implements AutoCloseable {
         JsonPatch jsonPatch;
         try {
             mainElement = parsePathForPutPatch(pm, request);
-            jsonPatch = SimpleJsonMapper.getSimpleObjectMapper().readValue(request.getContent(), JsonPatch.class);
+            jsonPatch = SimpleJsonMapperHelper.getSimpleObjectMapper().readValue(request.getContent(), JsonPatch.class);
         } catch (IllegalArgumentException exc) {
             LOGGER.trace("Path not valid.", exc);
             return errorResponse(response, 400, exc.getMessage());

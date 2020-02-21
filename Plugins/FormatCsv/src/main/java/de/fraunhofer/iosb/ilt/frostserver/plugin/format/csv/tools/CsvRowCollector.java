@@ -17,7 +17,7 @@
  */
 package de.fraunhofer.iosb.ilt.frostserver.plugin.format.csv.tools;
 
-import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapper;
+import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapperHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -88,7 +88,7 @@ public class CsvRowCollector {
         }
         if (value instanceof Collection || value instanceof Map || (value != null && value.getClass().isArray())) {
             try {
-                String json = SimpleJsonMapper.getSimpleObjectMapper().writeValueAsString(value);
+                String json = SimpleJsonMapperHelper.getSimpleObjectMapper().writeValueAsString(value);
                 elements.set(idx, json);
             } catch (IOException ex) {
                 LOGGER.warn("Could not transform collection to JSON.", ex);

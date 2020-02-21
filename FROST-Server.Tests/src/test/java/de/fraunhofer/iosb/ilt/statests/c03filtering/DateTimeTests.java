@@ -228,7 +228,7 @@ public class DateTimeTests extends AbstractTestClass {
     public void filterAndCheck(BaseDao doa, String filter, List<? extends Entity> expected) {
         try {
             EntityList<Observation> result = doa.query().filter(filter).list();
-            EntityUtils.resultTestResult check = EntityUtils.resultContains(result, expected);
+            EntityUtils.ResultTestResult check = EntityUtils.resultContains(result, expected);
             String msg = "Failed on filter: " + filter + " Cause: " + check.message;
             if (!check.testOk) {
                 LOGGER.info("Failed filter: {}\nexpected {},\n     got {}.",

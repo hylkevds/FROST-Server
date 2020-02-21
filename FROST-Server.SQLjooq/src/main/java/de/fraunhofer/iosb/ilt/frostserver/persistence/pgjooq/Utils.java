@@ -25,7 +25,7 @@ import de.fraunhofer.iosb.ilt.frostserver.model.ext.TimeInterval;
 import de.fraunhofer.iosb.ilt.frostserver.model.ext.TimeValue;
 import de.fraunhofer.iosb.ilt.frostserver.query.OrderBy;
 import static de.fraunhofer.iosb.ilt.frostserver.util.Constants.UTC;
-import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapper;
+import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapperHelper;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -122,7 +122,7 @@ public class Utils {
         }
 
         try {
-            return SimpleJsonMapper.getSimpleObjectMapper().readTree(json);
+            return SimpleJsonMapperHelper.getSimpleObjectMapper().readTree(json);
         } catch (IOException ex) {
             throw new IllegalStateException(FAILED_JSON_PARSE, ex);
         }
@@ -133,7 +133,7 @@ public class Utils {
             return null;
         }
         try {
-            return SimpleJsonMapper.getSimpleObjectMapper().readValue(json, clazz);
+            return SimpleJsonMapperHelper.getSimpleObjectMapper().readValue(json, clazz);
         } catch (IOException ex) {
             throw new IllegalStateException(FAILED_JSON_PARSE, ex);
         }
@@ -144,7 +144,7 @@ public class Utils {
             return null;
         }
         try {
-            return SimpleJsonMapper.getSimpleObjectMapper().readValue(json, typeReference);
+            return SimpleJsonMapperHelper.getSimpleObjectMapper().readValue(json, typeReference);
         } catch (IOException ex) {
             throw new IllegalStateException(FAILED_JSON_PARSE, ex);
         }

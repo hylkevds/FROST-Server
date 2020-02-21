@@ -40,7 +40,7 @@ import de.fraunhofer.iosb.ilt.frostserver.model.ext.UnitOfMeasurement;
 import de.fraunhofer.iosb.ilt.frostserver.property.EntityProperty;
 import de.fraunhofer.iosb.ilt.frostserver.model.EntityType;
 import de.fraunhofer.iosb.ilt.frostserver.property.Property;
-import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapper;
+import de.fraunhofer.iosb.ilt.frostserver.util.SimpleJsonMapperHelper;
 import de.fraunhofer.iosb.ilt.frostserver.util.TestHelper;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -236,7 +236,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeThingWithExpandedDatastream() throws Exception {
+    public void writeThingWithExpandedDatastream1() throws Exception {
         String expResult
                 = "{\n"
                 + "\"@iot.id\": 1,\n"
@@ -265,15 +265,17 @@ public class EntityFormatterTest {
                 .addProperty("color", "Silver")
                 .build();
         Assert.assertTrue(jsonEqual(expResult, EntityFormatter.writeEntity(entity)));
+    }
 
-        expResult
-                = "{\n"
+    @Test
+    public void writeThingWithExpandedDatastream2() throws Exception {
+        String expResult = "{\n"
                 + "\"@iot.id\": 1,\n"
                 + "\"Locations@iot.navigationLink\": \"Things(1)/Locations\",\n"
                 + "\"Datastreams\": [{\"@iot.id\":123}],\n"
                 + "\"name\": \"This thing is an oven.\"\n"
                 + "}";
-        entity = new ThingBuilder()
+        Thing entity = new ThingBuilder()
                 .setId(new IdLong(1))
                 .setSelfLink("http://example.org/v1.0/Things(1)")
                 .setLocations(new EntitySetImpl(EntityType.LOCATION, "Things(1)/Locations"))
@@ -289,15 +291,17 @@ public class EntityFormatterTest {
         entity.setSelectedPropertyNames(new HashSet<>(Arrays.asList(EntityProperty.ID.getJsonName(), "name", "Locations")));
         entity.getDatastreams().setExportObject(true);
         Assert.assertTrue(jsonEqual(expResult, EntityFormatter.writeEntity(entity)));
+    }
 
-        expResult
-                = "{\n"
+    @Test
+    public void writeThingWithExpandedDatastream3() throws Exception {
+        String expResult = "{\n"
                 + "\"@iot.selfLink\": \"http://example.org/v1.0/Things(1)\",\n"
                 + "\"Locations@iot.navigationLink\": \"Things(1)/Locations\",\n"
                 + "\"Datastreams\": [{\"@iot.id\":123}],\n"
                 + "\"name\": \"This thing is an oven.\"\n"
                 + "}";
-        entity = new ThingBuilder()
+        Thing entity = new ThingBuilder()
                 .setId(new IdLong(1))
                 .setSelfLink("http://example.org/v1.0/Things(1)")
                 .setLocations(new EntitySetImpl(EntityType.LOCATION, "Things(1)/Locations"))
@@ -313,9 +317,11 @@ public class EntityFormatterTest {
         entity.setSelectedPropertyNames(new HashSet<>(Arrays.asList(EntityProperty.SELFLINK.getJsonName(), "name", "Locations")));
         entity.getDatastreams().setExportObject(true);
         Assert.assertTrue(jsonEqual(expResult, EntityFormatter.writeEntity(entity)));
+    }
 
-        expResult
-                = "{\n"
+    @Test
+    public void writeThingWithExpandedDatastream4() throws Exception {
+        String expResult = "{\n"
                 + "  \"@iot.id\": 1,\n"
                 + "  \"@iot.selfLink\": \"http://example.org/v1.0/Things(1)\",\n"
                 + "  \"Locations@iot.navigationLink\": \"Things(1)/Locations\",\n"
@@ -328,7 +334,7 @@ public class EntityFormatterTest {
                 + "    \"color\": \"Silver\"\n"
                 + "  }\n"
                 + "}";
-        entity = new ThingBuilder()
+        Thing entity = new ThingBuilder()
                 .setId(new IdLong(1))
                 .setSelfLink("http://example.org/v1.0/Things(1)")
                 .setLocations(new EntitySetImpl(EntityType.LOCATION, "Things(1)/Locations"))
@@ -843,7 +849,7 @@ public class EntityFormatterTest {
     }
 
     private boolean jsonEqual(String string1, String string2) {
-        ObjectMapper mapper = SimpleJsonMapper.getSimpleObjectMapper();
+        ObjectMapper mapper = SimpleJsonMapperHelper.getSimpleObjectMapper();
         try {
             JsonNode json1 = mapper.readTree(string1);
             JsonNode json2 = mapper.readTree(string2);

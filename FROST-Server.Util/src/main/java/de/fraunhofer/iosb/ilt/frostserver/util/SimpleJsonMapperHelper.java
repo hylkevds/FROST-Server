@@ -12,11 +12,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * @author scf
  */
-public class SimpleJsonMapper {
+public class SimpleJsonMapperHelper {
 
     private static ObjectMapper simpleObjectMapper;
 
-    private SimpleJsonMapper() {
+    private SimpleJsonMapperHelper() {
         // Utility class.
     }
 

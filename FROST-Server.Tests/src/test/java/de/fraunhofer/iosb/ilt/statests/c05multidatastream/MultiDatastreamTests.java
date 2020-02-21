@@ -177,7 +177,7 @@ public class MultiDatastreamTests extends AbstractTestClass {
         Assert.fail(test + " Update did not respond with 400 Bad Request.");
     }
 
-    private void checkResult(String test, EntityUtils.resultTestResult result) {
+    private void checkResult(String test, EntityUtils.ResultTestResult result) {
         Assert.assertTrue(test + " " + result.message, result.testOk);
     }
 

@@ -210,7 +210,7 @@ public class DeleteFilterTests extends AbstractTestClass {
             doa.query().filter(filter).delete();
 
             EntityList<Observation> result = service.observations().query().list();
-            EntityUtils.resultTestResult check = EntityUtils.resultContains(result, expected);
+            EntityUtils.ResultTestResult check = EntityUtils.resultContains(result, expected);
             String message = "Failed on filter: " + filter + " Cause: " + check.message;
             Assert.assertTrue(message, check.testOk);
         } catch (ServiceFailureException ex) {

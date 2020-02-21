@@ -31,9 +31,7 @@ import de.fraunhofer.iosb.ilt.frostserver.path.PathElementProperty;
 import de.fraunhofer.iosb.ilt.frostserver.path.ResourcePath;
 import de.fraunhofer.iosb.ilt.frostserver.persistence.IdManagerString;
 import de.fraunhofer.iosb.ilt.frostserver.persistence.IdManagerLong;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -70,7 +68,7 @@ public class PathParserTest {
     }
 
     @Test
-    public void testPathentityThing() {
+    public void testPathThing() {
         testThing(0);
         testThing(1);
         testThing(-1);
@@ -80,7 +78,7 @@ public class PathParserTest {
     }
 
     @Test
-    public void testPathentityProperty() {
+    public void testPathEntityProperty() {
         for (EntityType entityType : EntityType.values()) {
             for (Property property : entityType.getPropertySet()) {
                 if (property instanceof EntityProperty) {
@@ -103,7 +101,7 @@ public class PathParserTest {
     }
 
     @Test
-    public void testPathentityThingPropertyValue() {
+    public void testPathEntityThingPropertyValue() {
         String path = "/Things(1)/properties/$value";
         ResourcePath result = PathParser.parsePath("", path);
 
@@ -120,7 +118,7 @@ public class PathParserTest {
     }
 
     @Test
-    public void testPathentityThingSubProperty() {
+    public void testPathEntityThingSubProperty() {
         {
             String path = "/Things(1)/properties/property1";
             ResourcePath result = PathParser.parsePath("", path);
@@ -206,7 +204,7 @@ public class PathParserTest {
     }
 
     @Test
-    public void testPathentityObservation() {
+    public void testPathEntityObservation() {
         String path = "/Observations(1)/parameters/property1";
         ResourcePath result = PathParser.parsePath("", path);
 

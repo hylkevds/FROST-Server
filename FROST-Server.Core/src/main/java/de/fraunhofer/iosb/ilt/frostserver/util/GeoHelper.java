@@ -140,6 +140,6 @@ public class GeoHelper {
     }
 
     public static GeoJsonObject parseGeoJson(String geoJsonString) throws IOException {
-        return SimpleJsonMapper.getSimpleObjectMapper().readValue(geoJsonString, GeoJsonObject.class);
+        return SimpleJsonMapperHelper.getSimpleObjectMapper().readValue(geoJsonString, GeoJsonObject.class);
     }
 }
