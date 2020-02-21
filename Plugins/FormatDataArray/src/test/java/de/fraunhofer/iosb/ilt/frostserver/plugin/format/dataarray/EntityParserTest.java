@@ -51,7 +51,7 @@ public class EntityParserTest {
     }
 
     @Test
-    public void readObservation_DataArray() throws IOException {
+    public void readObservationDataArray() throws IOException {
         String json = "[\n"
                 + "  {\n"
                 + "    \"Datastream\": {\n"

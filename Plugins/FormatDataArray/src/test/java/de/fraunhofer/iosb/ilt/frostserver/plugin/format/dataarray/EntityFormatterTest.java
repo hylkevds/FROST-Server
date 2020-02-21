@@ -52,7 +52,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeObservation_DataArray() throws IOException {
+    public void writeObservationDataArray() throws IOException {
         String expResult = "{\n"
                 + "    \"@iot.count\": 108,\n"
                 + "    \"@iot.nextLink\": \"nextLinkHere\",\n"
