@@ -174,9 +174,6 @@ public class FilterTests extends AbstractTestClass {
         createObservedProperty("ObservedProperty 3", new URI("http://ucom.org/turbidity"), "ObservedProperty with index 3.");
 
         UnitOfMeasurement uomTemp = new UnitOfMeasurement("degree celcius", "°C", "ucum:T");
-        UnitOfMeasurement uomHumi = new UnitOfMeasurement("percent", "%", "ucum:%");
-        UnitOfMeasurement uomPres = new UnitOfMeasurement("milibar", "mbar", "ucum:mbar");
-        UnitOfMeasurement uomTurb = new UnitOfMeasurement("-", "-", "-");
 
         createDatastream("Datastream 0", "Datastream 1 of thing 0, sensor 0.", "someType", uomTemp, THINGS.get(0), SENSORS.get(0), O_PROPS.get(0));
         createDatastream("Datastream 1", "Datastream 2 of thing 0, sensor 1.", "someType", uomTemp, THINGS.get(0), SENSORS.get(1), O_PROPS.get(1));

@@ -114,6 +114,9 @@ import org.joda.time.Period;
  */
 public class ExpressionParser extends AbstractParserVisitor {
 
+    private static final String GEOGRAPHY_REGEX = "^geography\\s*'\\s*(.*)'$";
+    private static final Pattern GEORAPHY_PATTERN = Pattern.compile(GEOGRAPHY_REGEX);
+
     public enum Operator {
         // Logical
         OP_NOT("not", Not.class),
@@ -417,9 +420,6 @@ public class ExpressionParser extends AbstractParserVisitor {
             return new StringConstant(node.jjtGetValue().toString());
         }
     }
-
-    private static final String GEOGRAPHY_REGEX = "^geography\\s*'\\s*(.*)'$";
-    private static final Pattern GEORAPHY_PATTERN = Pattern.compile(GEOGRAPHY_REGEX);
 
     @Override
     public GeoJsonConstant visit(ASTGeoStringLit node, Object data) {

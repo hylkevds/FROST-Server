@@ -23,6 +23,21 @@ import de.fraunhofer.iosb.ilt.frostserver.messagebus.MqttMessageBus;
 import de.fraunhofer.iosb.ilt.frostserver.settings.BusSettings;
 import de.fraunhofer.iosb.ilt.frostserver.settings.CoreSettings;
 import de.fraunhofer.iosb.ilt.frostserver.settings.MqttSettings;
+import de.fraunhofer.iosb.ilt.statests.c01sensingcore.Capability1Tests;
+import de.fraunhofer.iosb.ilt.statests.c02cud.AdditionalTests;
+import de.fraunhofer.iosb.ilt.statests.c02cud.Capability2Tests;
+import de.fraunhofer.iosb.ilt.statests.c02cud.DeleteFilterTests;
+import de.fraunhofer.iosb.ilt.statests.c02cud.JsonPatchTests;
+import de.fraunhofer.iosb.ilt.statests.c02cud.ResultTypesTests;
+import de.fraunhofer.iosb.ilt.statests.c03filtering.Capability3Tests;
+import de.fraunhofer.iosb.ilt.statests.c03filtering.DateTimeTests;
+import de.fraunhofer.iosb.ilt.statests.c03filtering.FilterTests;
+import de.fraunhofer.iosb.ilt.statests.c03filtering.GeoTests;
+import de.fraunhofer.iosb.ilt.statests.c03filtering.JsonPropertiesTests;
+import de.fraunhofer.iosb.ilt.statests.c05multidatastream.MultiDatastreamTests;
+import de.fraunhofer.iosb.ilt.statests.c06dataarrays.DataArrayTests;
+import de.fraunhofer.iosb.ilt.statests.c07mqttcreate.Capability7Tests;
+import de.fraunhofer.iosb.ilt.statests.c08mqttsubscribe.Capability8Tests;
 import de.fraunhofer.iosb.ilt.statests.util.HTTPMethods;
 import de.fraunhofer.iosb.ilt.statests.util.HTTPMethods.HttpResponse;
 import java.io.IOException;
@@ -54,21 +69,21 @@ import org.testcontainers.containers.GenericContainer;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    de.fraunhofer.iosb.ilt.statests.c01sensingcore.Capability1Tests.class,
-    de.fraunhofer.iosb.ilt.statests.c02cud.Capability2Tests.class,
-    de.fraunhofer.iosb.ilt.statests.c02cud.AdditionalTests.class,
-    de.fraunhofer.iosb.ilt.statests.c02cud.DeleteFilterTests.class,
-    de.fraunhofer.iosb.ilt.statests.c02cud.JsonPatchTests.class,
-    de.fraunhofer.iosb.ilt.statests.c02cud.ResultTypesTests.class,
-    de.fraunhofer.iosb.ilt.statests.c03filtering.Capability3Tests.class,
-    de.fraunhofer.iosb.ilt.statests.c03filtering.DateTimeTests.class,
-    de.fraunhofer.iosb.ilt.statests.c03filtering.FilterTests.class,
-    de.fraunhofer.iosb.ilt.statests.c03filtering.GeoTests.class,
-    de.fraunhofer.iosb.ilt.statests.c03filtering.JsonPropertiesTests.class,
-    de.fraunhofer.iosb.ilt.statests.c05multidatastream.MultiDatastreamTests.class,
-    de.fraunhofer.iosb.ilt.statests.c06dataarrays.DataArrayTests.class,
-    de.fraunhofer.iosb.ilt.statests.c07mqttcreate.Capability7Tests.class,
-    de.fraunhofer.iosb.ilt.statests.c08mqttsubscribe.Capability8Tests.class
+    Capability1Tests.class,
+    Capability2Tests.class,
+    AdditionalTests.class,
+    DeleteFilterTests.class,
+    JsonPatchTests.class,
+    ResultTypesTests.class,
+    Capability3Tests.class,
+    DateTimeTests.class,
+    FilterTests.class,
+    GeoTests.class,
+    JsonPropertiesTests.class,
+    MultiDatastreamTests.class,
+    DataArrayTests.class,
+    Capability7Tests.class,
+    Capability8Tests.class
 })
 public class TestSuite {
 

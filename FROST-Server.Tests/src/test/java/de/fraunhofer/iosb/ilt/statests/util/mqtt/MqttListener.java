@@ -85,6 +85,7 @@ public class MqttListener implements Callable<JSONObject> {
 
                         @Override
                         public void deliveryComplete(IMqttDeliveryToken imdt) {
+                            // Nothing to do here.
                         }
                     });
                     try {

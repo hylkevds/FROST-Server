@@ -48,7 +48,7 @@ public class Capability3Tests extends AbstractTestClass {
             historicalLocationId2, historicalLocationId3, historicalLocationId4,
             sensorId1, sensorId2, sensorId3, sensorId4,
             observedPropertyId1, observedPropertyId2, observedPropertyId3,
-            observationId1, observationId2, observationId3, observationId4, observationId5, observationId6, observationId7, observationId8, observationId9, observationId10, observationId11, observationId12,
+            observationId1, observationId7,
             featureOfInterestId1, featureOfInterestId2;
 
     private static final EntityCounts ENTITYCOUNTS = new EntityCounts();
@@ -1626,29 +1626,29 @@ public class Capability3Tests extends AbstractTestClass {
                     + "  \"phenomenonTime\": \"2015-03-02T00:00:00Z\",\n"
                     + "  \"result\": 2 \n"
                     + "   }";
-            observationId2 = postAndGetId(urlString, urlParameters);
+            postAndGetId(urlString, urlParameters);
             urlParameters = "{\n"
                     + "  \"phenomenonTime\": \"2015-03-03T00:00:00Z\",\n"
                     + "  \"result\": 3 \n"
                     + "   }";
-            observationId3 = postAndGetId(urlString, urlParameters);
+            postAndGetId(urlString, urlParameters);
 
             urlString = ServiceURLBuilder.buildURLString(serverSettings.getServiceUrl(version), EntityType.DATASTREAM, datastreamId2, EntityType.OBSERVATION, null);
             urlParameters = "{\n"
                     + "  \"phenomenonTime\": \"2015-03-04T00:00:00Z\",\n"
                     + "  \"result\": 4 \n"
                     + "   }";
-            observationId4 = postAndGetId(urlString, urlParameters);
+            postAndGetId(urlString, urlParameters);
             urlParameters = "{\n"
                     + "  \"phenomenonTime\": \"2015-03-05T00:00:00Z\",\n"
                     + "  \"result\": 5 \n"
                     + "   }";
-            observationId5 = postAndGetId(urlString, urlParameters);
+            postAndGetId(urlString, urlParameters);
             urlParameters = "{\n"
                     + "  \"phenomenonTime\": \"2015-03-06T00:00:00Z\",\n"
                     + "  \"result\": 6 \n"
                     + "   }";
-            observationId6 = postAndGetId(urlString, urlParameters);
+            postAndGetId(urlString, urlParameters);
 
             urlString = ServiceURLBuilder.buildURLString(serverSettings.getServiceUrl(version), EntityType.DATASTREAM, datastreamId3, EntityType.OBSERVATION, null);
             urlParameters = "{\n"
@@ -1660,29 +1660,29 @@ public class Capability3Tests extends AbstractTestClass {
                     + "  \"phenomenonTime\": \"2015-03-08T00:00:00Z\",\n"
                     + "  \"result\": 8 \n"
                     + "   }";
-            observationId8 = postAndGetId(urlString, urlParameters);
+            postAndGetId(urlString, urlParameters);
             urlParameters = "{\n"
                     + "  \"phenomenonTime\": \"2015-03-09T00:00:00Z\",\n"
                     + "  \"result\": 9 \n"
                     + "   }";
-            observationId9 = postAndGetId(urlString, urlParameters);
+            postAndGetId(urlString, urlParameters);
 
             urlString = ServiceURLBuilder.buildURLString(serverSettings.getServiceUrl(version), EntityType.DATASTREAM, datastreamId4, EntityType.OBSERVATION, null);
             urlParameters = "{\n"
                     + "  \"phenomenonTime\": \"2015-03-10T00:00:00Z\",\n"
                     + "  \"result\": 10 \n"
                     + "   }";
-            observationId10 = postAndGetId(urlString, urlParameters);
+            postAndGetId(urlString, urlParameters);
             urlParameters = "{\n"
                     + "  \"phenomenonTime\": \"2015-03-11T00:00:00Z\",\n"
                     + "  \"result\": 11 \n"
                     + "   }";
-            observationId11 = postAndGetId(urlString, urlParameters);
+            postAndGetId(urlString, urlParameters);
             urlParameters = "{\n"
                     + "  \"phenomenonTime\": \"2015-03-12T00:00:00Z\",\n"
                     + "  \"result\": 12 \n"
                     + "   }";
-            observationId12 = postAndGetId(urlString, urlParameters);
+            postAndGetId(urlString, urlParameters);
 
             //FeatureOfInterest
             urlString = ServiceURLBuilder.buildURLString(serverSettings.getServiceUrl(version), EntityType.OBSERVATION, observationId1, EntityType.FEATURE_OF_INTEREST, null);
@@ -1737,31 +1737,6 @@ public class Capability3Tests extends AbstractTestClass {
             Assert.fail("An Exception occurred during testing!:\n" + e.getMessage());
         }
 
-    }
-
-    /**
-     * Delete all the entities of a certain entity type
-     *
-     * @param entityType The entity type from EntityType enum
-     */
-    private static void deleteEntityType(EntityType entityType) {
-        JSONArray array = null;
-        do {
-            try {
-                String urlString = ServiceURLBuilder.buildURLString(serverSettings.getServiceUrl(version), entityType, null, null, null);
-                HttpResponse responseMap = HTTPMethods.doGet(urlString);
-                int responseCode = responseMap.code;
-                JSONObject result = new JSONObject(responseMap.response);
-                array = result.getJSONArray("value");
-                for (int i = 0; i < array.length(); i++) {
-                    Object id = array.getJSONObject(i).get(ControlInformation.ID);
-                    deleteEntity(entityType, id);
-                }
-            } catch (JSONException e) {
-                LOGGER.error("Exception: ", e);
-                Assert.fail("An Exception occurred during testing!:\n" + e.getMessage());
-            }
-        } while (array.length() > 0);
     }
 
     /**

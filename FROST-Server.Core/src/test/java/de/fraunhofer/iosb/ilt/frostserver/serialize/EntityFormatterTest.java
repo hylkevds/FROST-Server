@@ -50,12 +50,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.joda.time.DateTimeZone;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  *
@@ -63,19 +59,8 @@ import org.junit.rules.ExpectedException;
  */
 public class EntityFormatterTest {
 
-    @Rule
-    public final ExpectedException exception = ExpectedException.none();
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     @Test
-    public void writeThing_Basic_Success() throws IOException {
+    public void writeThingBasic() throws IOException {
         String expResult
                 = "{\n"
                 + "\"@iot.id\": 1,\n"
@@ -105,7 +90,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeThing_Select_Success() throws IOException {
+    public void writeThingSelect() throws IOException {
         String expResult
                 = "{\n"
                 + "\"@iot.id\": 1,\n"
@@ -130,7 +115,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeThings_Basic_Success() throws IOException {
+    public void writeThingsBasic() throws IOException {
         String thing
                 = "{\n"
                 + "\"@iot.id\": 1,\n"
@@ -168,7 +153,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeThing_CompletelyEmpty_Success() throws IOException {
+    public void writeThingCompletelyEmpty() throws IOException {
         String expResult
                 = "{}";
         Thing entity = new ThingBuilder()
@@ -177,7 +162,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeThings_WithExpandedDatastream_Success() throws IOException {
+    public void writeThingsWithExpandedDatastream() throws IOException {
         String thing
                 = "{\n"
                 + "\"@iot.id\": 1,\n"
@@ -251,7 +236,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeThing_WithExpandedDatastream_Success() throws Exception {
+    public void writeThingWithExpandedDatastream() throws Exception {
         String expResult
                 = "{\n"
                 + "\"@iot.id\": 1,\n"
@@ -358,7 +343,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeLocation_Basic_Success() throws Exception {
+    public void writeLocationBasic() throws Exception {
         {
             String expResult
                     = "{\n"
@@ -398,7 +383,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeLocation_WithGeoJsonLocation_Success() throws Exception {
+    public void writeLocationWithGeoJsonLocation() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -429,7 +414,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeHistoricalLocation_Basic_Success() throws Exception {
+    public void writeHistoricalLocationBasic() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -449,7 +434,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeDatastream_Basic_Success() throws Exception {
+    public void writeDatastreamBasic() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -492,7 +477,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeDatastream_WithEmptyUnitOfMeasurement_Success() throws Exception {
+    public void writeDatastreamWithEmptyUnitOfMeasurement() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -531,7 +516,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeDatastream_WithObservedAreaGeoJsonPolygon_Success() throws Exception {
+    public void writeDatastreamWithObservedAreaGeoJsonPolygon() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -580,7 +565,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeMultiDatastream_Basic_Success() throws Exception {
+    public void writeMultiDatastreamBasic() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -639,7 +624,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeSensor_Basic_Success() throws Exception {
+    public void writeSensorBasic() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -663,7 +648,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeSensor_EmptyDatastreamsCollection_Success() throws Exception {
+    public void writeSensorEmptyDatastreamsCollection() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -686,7 +671,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeObservedPropertyBasic_Success() throws Exception {
+    public void writeObservedPropertyBasic() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -708,7 +693,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeObservation_Basic_Success() throws Exception {
+    public void writeObservationBasic() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -732,7 +717,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeObservation_BasicWithNullResult() throws Exception {
+    public void writeObservationBasicWithNullResult() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -756,7 +741,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeObservation_WithEmptyResultTime_Success() throws Exception {
+    public void writeObservationWithEmptyResultTime() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -780,7 +765,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeObservation_WithEmptyDatastream_Success() throws Exception {
+    public void writeObservationWithEmptyDatastream() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -803,7 +788,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeFeatureOfInterst_Basic_Success() throws Exception {
+    public void writeFeatureOfInterstBasic() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"
@@ -825,7 +810,7 @@ public class EntityFormatterTest {
     }
 
     @Test
-    public void writeFeatureOfInterst_WithGeoJsonPointFeature_Success() throws Exception {
+    public void writeFeatureOfInterstWithGeoJsonPointFeature() throws Exception {
         String expResult
                 = "{\n"
                 + "	\"@iot.id\": 1,\n"

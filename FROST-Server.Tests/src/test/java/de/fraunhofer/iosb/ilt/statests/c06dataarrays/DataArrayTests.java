@@ -122,7 +122,6 @@ public class DataArrayTests extends AbstractTestClass {
         Datastream ds1 = DATASTREAMS.get(0);
         Datastream ds2 = DATASTREAMS.get(1);
         FeatureOfInterest foi1 = FEATURES.get(0);
-        FeatureOfInterest foi2 = FEATURES.get(1);
         // Try to create four observations
         // The second one should return "error".
         String jsonString = "[\n"

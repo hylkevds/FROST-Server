@@ -943,7 +943,7 @@ public class EntityParserTest {
     }
 
     @Test
-    public void readThingWithLinks() throws IOException {
+    public void readThingWithLinks1() throws IOException {
         String json = "{\n"
                 + "    \"name\": \"camping lantern\",\n"
                 + "    \"description\": \"camping lantern\",\n"
@@ -967,8 +967,11 @@ public class EntityParserTest {
                         .build())
                 .build();
         assertEquals(expectedResult, entityParser.parseThing(json));
+    }
 
-        json = "{\n"
+    @Test
+    public void readThingWithLinks2() throws IOException {
+        String json = "{\n"
                 + "    \"name\": \"camping lantern\",\n"
                 + "    \"description\": \"camping lantern\",\n"
                 + "    \"properties\": {\n"
@@ -980,7 +983,7 @@ public class EntityParserTest {
                 + "        {\"@iot.id\":100}\n"
                 + "    ]\n"
                 + "}";
-        expectedResult = new ThingBuilder()
+        Thing expectedResult = new ThingBuilder()
                 .setName("camping lantern")
                 .setDescription("camping lantern")
                 .addProperty("property1", "it’s waterproof")
@@ -991,8 +994,11 @@ public class EntityParserTest {
                         .build())
                 .build();
         assertEquals(expectedResult, entityParser.parseThing(json));
+    }
 
-        json = "{\n"
+    @Test
+    public void readThingWithLinks3() throws IOException {
+        String json = "{\n"
                 + "    \"name\": \"camping lantern\",\n"
                 + "    \"description\": \"camping lantern\",\n"
                 + "    \"properties\": {\n"
@@ -1004,7 +1010,7 @@ public class EntityParserTest {
                 + "        {\"@iot.id\":100}\n"
                 + "    ]\n"
                 + "}";
-        expectedResult = new ThingBuilder()
+        Thing expectedResult = new ThingBuilder()
                 .setName("camping lantern")
                 .setDescription("camping lantern")
                 .addProperty("property1", "it’s waterproof")
@@ -1015,8 +1021,11 @@ public class EntityParserTest {
                         .build())
                 .build();
         assertEquals(expectedResult, entityParser.parseThing(json));
+    }
 
-        json = "{\n"
+    @Test
+    public void readThingWithLinks4() throws IOException {
+        String json = "{\n"
                 + "    \"name\": \"camping lantern\",\n"
                 + "    \"description\": \"camping lantern\",\n"
                 + "    \"properties\": {\n"
@@ -1031,7 +1040,7 @@ public class EntityParserTest {
                 + "        {\"@iot.id\":100}\n"
                 + "    ]\n"
                 + "}";
-        expectedResult = new ThingBuilder()
+        Thing expectedResult = new ThingBuilder()
                 .setName("camping lantern")
                 .setDescription("camping lantern")
                 .addProperty("property1", "it’s waterproof")
