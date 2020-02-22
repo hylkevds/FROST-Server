@@ -1,0 +1,26 @@
+---
+engines:
+  brakeman:
+    enabled: false
+  bundleraudit:
+    enabled: true
+  checkstyle:
+    enabled: true
+  hadolint:
+    enabled: true
+  pmd:
+    enabled: true
+  remarklint:
+    enabled: true
+  rubocop:
+    enabled: true
+  scsslint:
+    enabled: true
+  sqlint:
+    enabled: true
+  stylelint:
+    enabled: true
+  TSQLLint:
+    enabled: false
+  shellcheck:
+    enabled: true
